@@ -51,10 +51,33 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSend('sending');
-    // Simulate API call — replace with real endpoint
-    await new Promise((r) => setTimeout(r, 1800));
-    setSend('sent');
-    setForm({ name: '', email: '', subject: '', message: '' });
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+        }),
+      });
+
+      if (response.ok) {
+        setSend('sent');
+        setForm({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSend('error');
+      }
+    } catch (error) {
+      setSend('error');
+    }
+
     setTimeout(() => setSend('idle'), 4000);
   };
 

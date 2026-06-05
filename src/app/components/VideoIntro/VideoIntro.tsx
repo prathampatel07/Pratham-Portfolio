@@ -11,32 +11,150 @@ const CinematicLayer = dynamic(
 
 const VIDEO_SRC = '/videos/hero.mp4';
 
+// Smoothly fades a video's volume from its current level to `targetVol`
+// over ~400ms. If fading to 0, sets muted=true at the end.
+function fadeVolume(video: HTMLVideoElement, targetVol: number): () => void {
+  let rafId: number;
+  const start     = video.volume;
+  const diff      = targetVol - start;
+  const DURATION  = 400; // ms
+  const startTime = performance.now();
+
+  // Unmute first so we can hear the fade-up
+  if (targetVol > 0) video.muted = false;
+
+  function step(now: number) {
+    const elapsed  = Math.min(now - startTime, DURATION);
+    const progress = elapsed / DURATION;
+    // ease-out curve
+    const eased    = 1 - Math.pow(1 - progress, 3);
+    video.volume   = Math.max(0, Math.min(1, start + diff * eased));
+
+    if (elapsed < DURATION) {
+      rafId = requestAnimationFrame(step);
+    } else {
+      video.volume = targetVol;
+      if (targetVol === 0) video.muted = true;
+    }
+  }
+
+  rafId = requestAnimationFrame(step);
+  return () => cancelAnimationFrame(rafId); // cleanup handle
+}
+
 export default function VideoIntro() {
-  const fgVideoRef  = useRef<HTMLVideoElement>(null);
-  const bgVideoRef  = useRef<HTMLVideoElement>(null);
+  const sectionRef   = useRef<HTMLElement>(null);
+  const fgVideoRef   = useRef<HTMLVideoElement>(null);
+  const bgVideoRef   = useRef<HTMLVideoElement>(null);
+
   const [isMuted, setIsMuted]       = useState(true);
   const [showBadge, setShowBadge]   = useState(true);
 
-  // Auto-hide "Tap for sound" badge after 5s
+  // Track whether the user has manually interacted with sound.
+  // If true, auto-mute/unmute will NOT override the manual choice
+  // until the hero comes back into view (then we reset preference).
+  const manuallyMuted = useRef<boolean | null>(null); // null = no manual override
+
+  // ── 1. Attempt unmuted autoplay on load ────────────────────────
+  useEffect(() => {
+    const fg = fgVideoRef.current;
+    if (!fg) return;
+
+    // Try to play with sound (will fail on most browsers due to policy)
+    fg.muted = false;
+    fg.play()
+      .then(() => {
+        // Browser allowed unmuted autoplay — great!
+        setIsMuted(false);
+        setShowBadge(true); // still show badge so user knows sound is on
+        setTimeout(() => setShowBadge(false), 5000);
+      })
+      .catch(() => {
+        // Blocked — fall back to muted autoplay (existing behaviour)
+        fg.muted = true;
+        setIsMuted(true);
+        setTimeout(() => setShowBadge(false), 5000);
+      });
+  }, []);
+
+  // ── 2. Auto hide "Tap for sound" badge after 5 s ───────────────
   useEffect(() => {
     const timer = setTimeout(() => setShowBadge(false), 5000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Mute/Unmute toggle — only foreground video carries audio
+  // ── 3. Scroll-based auto-mute / auto-unmute via Scroll Listener ───────
+  useEffect(() => {
+    const fg = fgVideoRef.current;
+    if (!fg) return;
+
+    let cancelFade: (() => void) | null = null;
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // If user scrolled past 25% of viewport height
+          const threshold = window.innerHeight * 0.25;
+          const scrolledPast = window.scrollY > threshold;
+
+          if (!scrolledPast) {
+            // ── Hero is back in view ────────────────────────────────
+            manuallyMuted.current = null; // Reset manual override
+
+            if (!fg.paused) {
+              cancelFade?.();
+              cancelFade = fadeVolume(fg, 1);
+              setIsMuted(false);
+            }
+          } else {
+            // ── Hero is scrolled away ───────────────────────────────
+            // Only auto-mute if user hasn't manually unmuted this session
+            if (manuallyMuted.current === false) {
+              ticking = false;
+              return;
+            }
+
+            cancelFade?.();
+            cancelFade = fadeVolume(fg, 0);
+            setIsMuted(true);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check on mount
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelFade?.();
+    };
+  }, []);
+
+  // ── 4. Manual sound toggle (always overrides auto-control) ─────
   const toggleMute = useCallback(() => {
     const fg = fgVideoRef.current;
     if (!fg) return;
-    const next = !isMuted;
-    fg.muted = next;
 
-    // If unmuting, ensure playback is active
+    const next = !isMuted;
+
     if (!next) {
+      // User is UNMUTING manually
+      manuallyMuted.current = false; // record: user wants sound on
+      fg.muted = false;
       fg.play().catch(() => {
-        // Autoplay policy blocked — stay muted
         fg.muted = true;
         setIsMuted(true);
+        manuallyMuted.current = null;
       });
+    } else {
+      // User is MUTING manually
+      manuallyMuted.current = true; // record: user wants silence
+      fg.muted = true;
     }
 
     setIsMuted(next);
@@ -44,7 +162,7 @@ export default function VideoIntro() {
   }, [isMuted]);
 
   return (
-    <section className={styles.hero} aria-label="Cinematic video hero">
+    <section ref={sectionRef} className={styles.hero} aria-label="Cinematic video hero">
 
       {/* ── Blurred Ambient Background (always muted) ─── */}
       <video
@@ -65,7 +183,7 @@ export default function VideoIntro() {
         src={VIDEO_SRC}
         autoPlay
         loop
-        muted           /* starts muted — user toggles sound */
+        muted           /* starts muted — effect #1 overrides if browser allows */
         playsInline
         aria-label="Pratham Patel cinematic intro"
       />
@@ -81,8 +199,8 @@ export default function VideoIntro() {
         className={`${styles.soundBadge} ${showBadge ? styles.soundBadgeVisible : ''}`}
         aria-live="polite"
       >
-        <span className={styles.soundBadgeIcon}>🔇</span>
-        <span>Tap for sound</span>
+        <span className={styles.soundBadgeIcon}>{isMuted ? '🔇' : '🔊'}</span>
+        <span>{isMuted ? 'Tap for sound' : 'Sound ON'}</span>
       </div>
 
       {/* ── Sound Toggle Button ──────────────────────────── */}

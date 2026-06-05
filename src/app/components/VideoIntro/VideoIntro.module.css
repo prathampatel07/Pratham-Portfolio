@@ -5,7 +5,9 @@
 
 /* ─── Hero Container ─────────────────────────────────────── */
 .hero {
-  position: relative;
+  position: sticky;        /* ← pins hero while sections scroll over */
+  top: 0;
+  z-index: 1;              /* sits below all portfolio sections */
   width: 100%;
   width: 100vw;
   height: 100vh;

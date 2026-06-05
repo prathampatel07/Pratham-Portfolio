@@ -3,8 +3,6 @@
    Global Styles & Design Tokens
 ═══════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-
 /* ─── Design Tokens ─────────────────────────────────────────── */
 :root {
   /* Colors */
@@ -21,8 +19,8 @@
   --color-glass-hover:   rgba(255, 255, 255, 0.1);
 
   /* Typography */
-  --font-display:  'Playfair Display', Georgia, serif;
-  --font-body:     'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-display:  var(--font-playfair), Georgia, serif;
+  --font-body:     var(--font-space), var(--font-inter), system-ui, sans-serif;
   --font-mono:     'SF Mono', 'Fira Code', monospace;
 
   /* Spacing */
@@ -62,8 +60,8 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Prevent horizontal overflow on all mobile devices */
-  overflow-x: hidden;
+  /* Prevent horizontal overflow on all mobile devices without breaking sticky */
+  overflow-x: clip;
 }
 
 body {
@@ -72,7 +70,7 @@ body {
   font-family: var(--font-body);
   font-weight: 400;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
   /* Remove blue flash on tap (iOS/Android) */
   -webkit-tap-highlight-color: transparent;
   /* Smooth momentum scrolling on iOS */
@@ -186,4 +184,39 @@ button {
 /* ─── Section Base ──────────────────────────────────────────── */
 section {
   position: relative;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CINEMATIC SCROLL-OVER SYSTEM
+   Hero is sticky (z-index:1). Every portfolio section stacks
+   above it (z-index:10) so they visually "slide over" the video.
+   IntroReveal also gets border-radius+shadow in its own module.
+═══════════════════════════════════════════════════════════════ */
+
+/* All content sections sit above the sticky hero */
+#about,
+#skills,
+#projects,
+#experience,
+#certifications,
+#contact {
+  position: relative;
+  z-index: 10;
+}
+
+/* Navbar always on top */
+nav {
+  z-index: 100 !important;
+}
+
+/* Footer above hero */
+footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure the main scroll container doesn't clip sticky hero */
+main {
+  position: relative;
+  z-index: 0;
 }
