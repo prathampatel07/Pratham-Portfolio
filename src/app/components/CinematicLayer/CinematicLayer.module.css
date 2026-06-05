@@ -1,0 +1,13 @@
+/* ═══════════════════════════════════════════════════════════
+   CinematicLayer — Three.js Particle Canvas Styles
+═══════════════════════════════════════════════════════════ */
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.85;
+}

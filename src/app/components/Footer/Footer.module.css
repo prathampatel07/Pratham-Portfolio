@@ -1,0 +1,130 @@
+/* ═══════════════════════════════════════════════════════════
+   Footer — Minimal Cinematic Footer
+═══════════════════════════════════════════════════════════ */
+
+.footer {
+  position: relative;
+  background: #050507;
+  padding: 4rem 0 2.5rem;
+}
+
+.topLine {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,140,66,0.2), transparent);
+}
+
+.inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ─── Brand ──────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--color-orange);
+  color: #0a0a0a;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 900;
+  border-radius: 8px;
+  letter-spacing: -0.05em;
+  box-shadow: 0 0 20px rgba(255,140,66,0.25);
+}
+
+.tagline {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+  max-width: 220px;
+}
+
+/* ─── Nav Links ──────────────────────────────────────────── */
+.links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255,245,230,0.45);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.25s ease;
+}
+
+.link:hover { color: var(--color-orange); }
+
+/* ─── Copyright ──────────────────────────────────────────── */
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: right;
+}
+
+.copy p {
+  font-size: 0.78rem;
+  color: rgba(255,245,230,0.35);
+  letter-spacing: 0.02em;
+}
+
+.builtWith {
+  font-size: 0.68rem !important;
+  color: rgba(255,140,66,0.4) !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .copy { grid-column: 1 / -1; text-align: left; }
+}
+
+@media (max-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+  }
+  .links  { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.25rem 0.5rem; }
+  .link   { min-height: 40px; display: flex; align-items: center; }
+  .copy   { text-align: center; }
+  .brand  { align-items: center; }
+  .tagline { text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .footer { padding: 3rem 0 2rem; }
+  .inner  { padding: 0 5vw; }
+  .copy p { font-size: 0.72rem; }
+  .logoMark { width: 36px; height: 36px; font-size: 0.9rem; }
+}
+
+@media (max-width: 320px) {
+  .inner { padding: 0 4vw; }
+  .tagline { font-size: 0.75rem; }
+}

@@ -1,0 +1,267 @@
+/* ═══════════════════════════════════════════════════════════
+   Navbar — Fixed Cinematic Navigation
+═══════════════════════════════════════════════════════════ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem 0;
+  transition: background 0.4s ease, padding 0.3s ease, box-shadow 0.4s ease;
+}
+
+.navScrolled {
+  background: rgba(7, 7, 9, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+  padding: 0.85rem 0;
+}
+
+/* ─── Inner Layout ───────────────────────────────────────── */
+.inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* ─── Logo ───────────────────────────────────────────────── */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logoMark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-orange);
+  color: #0a0a0a;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 900;
+  border-radius: 6px;
+  letter-spacing: -0.05em;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(255, 140, 66, 0.3);
+}
+
+.logoText {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--color-warm-white);
+  text-transform: uppercase;
+}
+
+/* ─── Desktop Links ──────────────────────────────────────── */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.link {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(255, 245, 230, 0.7);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: color 0.25s ease, background 0.25s ease;
+  position: relative;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1.5px;
+  background: var(--color-orange);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.link:hover {
+  color: var(--color-warm-white);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.link:hover::after {
+  width: 50%;
+}
+
+/* ─── Desktop CTA ────────────────────────────────────────── */
+.ctaBtn {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: var(--color-orange);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 140, 66, 0.2);
+  white-space: nowrap;
+}
+
+.ctaBtn:hover {
+  background: #ffaa55;
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(255, 140, 66, 0.4);
+}
+
+/* ─── Hamburger ──────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 101;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-warm-white);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburgerOpen span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburgerOpen span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburgerOpen span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ─── Mobile Menu ────────────────────────────────────────── */
+.mobileMenu {
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 5vw 1.5rem;
+  background: rgba(7, 7, 9, 0.95);
+  backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  transform: translateY(-100%);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  opacity: 0;
+}
+
+.mobileMenuOpen {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobileLink {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 245, 230, 0.7);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.85rem 0;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: color 0.2s ease;
+}
+
+.mobileLink:hover { color: var(--color-orange); }
+
+.mobileCta {
+  margin-top: 1rem;
+  display: block;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: var(--color-orange);
+  padding: 0.85rem;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .inner { padding: 0 4vw; gap: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+  .links, .ctaBtn { display: none; }
+  .hamburger      { display: flex; }
+  .mobileMenu     { display: flex; }
+
+  /* Larger touch target for hamburger */
+  .hamburger {
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner   { padding: 0 5vw; gap: 1rem; }
+  .logoText { font-size: 0.7rem; letter-spacing: 0.12em; }
+  .logoMark { width: 32px; height: 32px; font-size: 0.8rem; }
+
+  .mobileLink {
+    font-size: 1rem;
+    padding: 1rem 0;          /* 52px+ touch height */
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobileCta {
+    margin-top: 0.75rem;
+    padding: 1rem;
+    min-height: 52px;
+    font-size: 0.82rem;
+  }
+
+  .mobileMenu { padding: 0.75rem 5vw 2rem; }
+}
+
+@media (max-width: 375px) {
+  .inner    { padding: 0 4.5vw; }
+  .logoText { display: none; }   /* show only PP mark on tiny phones */
+}
+
+@media (max-width: 320px) {
+  .inner    { padding: 0 4vw; }
+  .logoMark { width: 30px; height: 30px; font-size: 0.75rem; }
+}
