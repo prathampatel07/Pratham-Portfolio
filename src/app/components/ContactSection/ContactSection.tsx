@@ -25,7 +25,10 @@ export default function ContactSection() {
   const [send, setSend]       = useState<SendState>('idle');
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // ── DESKTOP & TABLET (≥ 768px) ─────────────────────────────────
+    mm.add("(min-width: 768px)", () => {
       gsap.from(headRef.current, {
         opacity: 0, y: 50, duration: 1, ease: 'power3.out',
         scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
@@ -40,8 +43,12 @@ export default function ContactSection() {
         scrollTrigger: { trigger: rightRef.current, start: 'top 82%' },
         delay: 0.2,
       });
-    }, sectionRef);
-    return () => ctx.revert();
+    });
+
+    // ── MOBILE ONLY (< 768px) ──────────────────────────────────────
+    // GSAP removed for mobile. Native CSS renders elements statically.
+
+    return () => mm.revert();
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

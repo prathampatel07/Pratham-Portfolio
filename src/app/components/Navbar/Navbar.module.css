@@ -166,6 +166,10 @@
 
 /* ─── Mobile Menu ────────────────────────────────────────── */
 .mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   display: none;
   flex-direction: column;
   gap: 0.25rem;
@@ -176,6 +180,7 @@
   transform: translateY(-100%);
   transition: transform 0.35s ease, opacity 0.35s ease;
   opacity: 0;
+  z-index: -1;
 }
 
 .mobileMenuOpen {

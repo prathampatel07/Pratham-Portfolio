@@ -223,6 +223,16 @@
 
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
+  .hero {
+    position: relative;
+    height: 85svh;
+    min-height: 85svh;
+  }
+
+  .bgVideo { filter: none !important; }
+  .gradientOverlay { background: rgba(7, 7, 9, 0.4) !important; }
+  .canvas { display: none !important; }
+
   .fgVideo { object-position: center top; }
 
   /* Move sound button so it doesn't clash with scroll hint */
@@ -231,10 +241,19 @@
     right: 5vw;
     width: 44px;
     height: 44px;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(25, 25, 28, 0.95) !important;
   }
 
   /* Push badge closer to top on mobile */
-  .soundBadge { top: 3vh; font-size: 0.65rem; }
+  .soundBadge { 
+    top: 3vh; 
+    font-size: 0.65rem; 
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(25, 25, 28, 0.95) !important;
+  }
 
   /* Chevron slightly smaller */
   .scrollChevron { width: 18px; height: 18px; }

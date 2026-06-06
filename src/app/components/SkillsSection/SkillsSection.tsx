@@ -104,13 +104,16 @@ export default function SkillsSection() {
   const softRef    = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // ── DESKTOP & TABLET (≥ 768px) ─────────────────────────────────
+    mm.add("(min-width: 768px)", () => {
       gsap.from(headRef.current, {
         opacity: 0, y: 50, duration: 1, ease: 'power3.out',
         scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
       });
       const cards = cardsRef.current?.querySelectorAll(`.${styles.card}`);
-      if (cards) {
+      if (cards && cards.length > 0) {
         gsap.from(cards, {
           opacity: 0, y: 60, duration: 0.8, ease: 'power3.out',
           stagger: 0.12,
@@ -121,8 +124,12 @@ export default function SkillsSection() {
         opacity: 0, y: 40, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: softRef.current, start: 'top 85%' },
       });
-    }, sectionRef);
-    return () => ctx.revert();
+    });
+
+    // ── MOBILE ONLY (< 768px) ──────────────────────────────────────
+    // GSAP removed for mobile. Native CSS renders elements statically.
+
+    return () => mm.revert();
   }, []);
 
   return (

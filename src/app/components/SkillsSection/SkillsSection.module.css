@@ -230,6 +230,7 @@
 
 @media (max-width: 768px) {
   .section { padding: 5rem 0 7rem; }
+  .bgGlow { display: none !important; }
   .inner   { gap: 4rem; padding: 0 6vw; }
 
   .title   { font-size: clamp(2rem, 8vw, 3.5rem); }

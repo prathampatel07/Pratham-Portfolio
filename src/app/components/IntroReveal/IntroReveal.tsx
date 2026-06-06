@@ -24,7 +24,11 @@ export default function IntroReveal() {
   const visualRef    = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // ── DESKTOP & TABLET (≥ 768px) ─────────────────────────────────
+    // Exact deployed production values
+    mm.add("(min-width: 768px)", () => {
       const ease = 'power3.out';
 
       gsap.to(eyebrowRef.current, {
@@ -61,9 +65,12 @@ export default function IntroReveal() {
         scrollTrigger: { trigger: visualRef.current, start: 'top 85%' },
         delay: 0.2,
       });
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    // ── MOBILE ONLY (< 768px) ──────────────────────────────────────
+    // GSAP removed for mobile. Native CSS renders elements statically.
+
+    return () => mm.revert();
   }, []);
 
   return (

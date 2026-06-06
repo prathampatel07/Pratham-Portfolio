@@ -396,7 +396,11 @@
 
 /* ─── Large Mobile / Small Tablet (≤ 768px) ─────────────── */
 @media (max-width: 768px) {
-  .section { padding: 5rem 0; }
+  .section { 
+    padding: 5rem 0; 
+    box-shadow: none !important;
+  }
+  .section::before { display: none !important; }
 
   .inner { padding: 0 6vw; gap: 3rem; }
 
@@ -407,7 +411,19 @@
 
   .role { font-size: 0.95rem; }
 
-  .bioCard { padding: 1.75rem; }
+  .bioCard { 
+    padding: 1.75rem; 
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(25, 25, 28, 0.95) !important;
+  }
+  .bioCard::before { display: none !important; }
+
+  .ctaSecondary {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
   .bioText { font-size: 0.9rem; line-height: 1.75; }
 
   .ctas {
@@ -426,6 +442,18 @@
 
   .tags { gap: 0.5rem; }
   .tag  { padding: 0.45rem 0.85rem; min-height: 36px; }
+
+  /* Force elements to be visible since mobile GSAP is disabled */
+  .eyebrow,
+  .firstName,
+  .lastName,
+  .role,
+  .tags,
+  .ctas,
+  .visual {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* ─── Mobile (≤ 480px) ───────────────────────────────────── */

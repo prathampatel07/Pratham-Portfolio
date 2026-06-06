@@ -42,21 +42,29 @@ export default function ProjectsSection() {
   const headRef    = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // ── DESKTOP & TABLET (≥ 768px) ─────────────────────────────────
+    // Exact deployed production values
+    mm.add("(min-width: 768px)", () => {
       gsap.from(headRef.current, {
         opacity: 0, y: 50, duration: 1, ease: 'power3.out',
         scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
       });
       const cards = sectionRef.current?.querySelectorAll(`.${styles.card}`);
-      if (cards) {
+      if (cards && cards.length > 0) {
         gsap.from(cards, {
           opacity: 0, y: 80, duration: 0.9, ease: 'power3.out',
           stagger: 0.2,
           scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
         });
       }
-    }, sectionRef);
-    return () => ctx.revert();
+    });
+
+    // ── MOBILE ONLY (< 768px) ──────────────────────────────────────
+    // GSAP removed for mobile. Native CSS renders elements statically.
+
+    return () => mm.revert();
   }, []);
 
   return (

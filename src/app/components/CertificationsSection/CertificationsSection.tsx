@@ -70,21 +70,28 @@ export default function CertificationsSection() {
   const gridRef    = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // ── DESKTOP & TABLET (≥ 768px) ─────────────────────────────────
+    mm.add("(min-width: 768px)", () => {
       gsap.from(headRef.current, {
         opacity: 0, y: 50, duration: 1, ease: 'power3.out',
         scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
       });
       const cards = gridRef.current?.querySelectorAll(`.${styles.card}`);
-      if (cards) {
+      if (cards && cards.length > 0) {
         gsap.from(cards, {
           opacity: 0, y: 50, duration: 0.7, ease: 'power3.out',
           stagger: 0.1,
           scrollTrigger: { trigger: gridRef.current, start: 'top 82%' },
         });
       }
-    }, sectionRef);
-    return () => ctx.revert();
+    });
+
+    // ── MOBILE ONLY (< 768px) ──────────────────────────────────────
+    // GSAP removed for mobile. Native CSS renders elements statically.
+
+    return () => mm.revert();
   }, []);
 
   return (
