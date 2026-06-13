@@ -151,15 +151,7 @@ export default function ContactSection() {
                     </a>
                   </div>
                 </div>
-                <div className={styles.infoItem}>
-                  <span className={styles.infoIcon}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  </span>
-                  <div>
-                    <div className={styles.infoLabel}>Response Time</div>
-                    <div className={styles.infoValue}>Usually within 24 hours</div>
-                  </div>
-                </div>
+
               </div>
 
               {/* Social Links */}

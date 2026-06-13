@@ -10,7 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 // ── EXACT skills from resume — nothing more ──
 const SKILL_CATEGORIES = [
   {
-    icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>),
     title: 'Frontend Development',
     color: '#ff8c42',
     skills: [
@@ -21,7 +20,6 @@ const SKILL_CATEGORIES = [
     ],
   },
   {
-    icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>),
     title: 'Backend Development',
     color: '#7c8cf8',
     skills: [
@@ -31,7 +29,6 @@ const SKILL_CATEGORIES = [
     ],
   },
   {
-    icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>),
     title: 'Database',
     color: '#34d399',
     skills: [
@@ -40,7 +37,6 @@ const SKILL_CATEGORIES = [
     ],
   },
   {
-    icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>),
     title: 'Programming & CS Fundamentals',
     color: '#fbbf24',
     skills: [
@@ -51,7 +47,6 @@ const SKILL_CATEGORIES = [
     ],
   },
   {
-    icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="9" y="9" width="6" height="6"/><path d="M15 2v3M9 2v3M2 9h3M2 15h3M15 22v-3M9 22v-3M22 9h-3M22 15h-3"/><rect x="4" y="4" width="16" height="16" rx="2"/></svg>),
     title: 'Design & AI Tools',
     color: '#f472b6',
     skills: [
@@ -63,7 +58,6 @@ const SKILL_CATEGORIES = [
     ],
   },
   {
-    icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="8 10 12 14 8 18"/><line x1="14" y1="18" x2="20" y2="18"/></svg>),
     title: 'Dev Tools & Deployment',
     color: '#60a5fa',
     skills: [
@@ -86,11 +80,7 @@ const SOFT_SKILLS = [
   'Problem-Solving Mindset',
 ];
 
-const LEVEL_COLORS: Record<string, string> = {
-  'Proficient':   'rgba(52,211,153,0.15)',
-  'Intermediate': 'rgba(255,140,66,0.15)',
-  'Learning':     'rgba(251,191,36,0.12)',
-};
+
 const LEVEL_TEXT: Record<string, string> = {
   'Proficient':   '#34d399',
   'Intermediate': '#ff8c42',
@@ -160,7 +150,6 @@ export default function SkillsSection() {
               style={{ '--card-color': cat.color } as React.CSSProperties}
             >
               <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>{cat.icon}</span>
                 <h3 className={styles.cardTitle}>{cat.title}</h3>
               </div>
               <div className={styles.cardGlow} aria-hidden="true" />
@@ -168,13 +157,12 @@ export default function SkillsSection() {
                 {cat.skills.map((skill) => (
                   <div key={skill.name} className={styles.skillItem}>
                     <span className={styles.skillName}>{skill.name}</span>
-                    <span
-                      className={styles.skillLevel}
-                      style={{
-                        background: LEVEL_COLORS[skill.level],
-                        color: LEVEL_TEXT[skill.level],
-                      }}
-                    >
+                      <span
+                        className={styles.skillLevel}
+                        style={{
+                          '--badge-color': LEVEL_TEXT[skill.level],
+                        } as React.CSSProperties}
+                      >
                       {skill.level}
                     </span>
                   </div>

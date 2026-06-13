@@ -169,12 +169,18 @@
 }
 
 .skillLevel {
-  font-size: 0.6rem;
+  background: rgba(20, 20, 22, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  border-radius: 3px;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.55rem;
+  line-height: 1;
+  border-left: 2px solid var(--badge-color);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.2rem 0.6rem;
-  border-radius: 100px;
   white-space: nowrap;
 }
 

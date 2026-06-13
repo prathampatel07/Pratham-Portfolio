@@ -67,7 +67,7 @@ export default function Navbar() {
           className={styles.ctaBtn}
           onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
         >
-          Hire Me
+          Get In Touch
         </a>
 
         {/* Mobile Hamburger */}
@@ -94,7 +94,7 @@ export default function Navbar() {
         ))}
         <a href="#contact" className={styles.mobileCta}
           onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); setMenuOpen(false); }}>
-          Hire Me
+          Get In Touch
         </a>
       </div>
     </nav>

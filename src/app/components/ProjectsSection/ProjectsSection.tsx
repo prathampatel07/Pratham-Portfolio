@@ -15,7 +15,7 @@ const PROJECTS = [
     title: 'CricSenseX',
     subtitle: 'Real-Time Cricket Scoring Platform',
     description:
-      'Full-stack real-time cricket scoring and tournament management application featuring ball-by-ball scoring, Firebase live synchronization, innings management, strike rotation, player analytics, NRR calculation, fantasy points engine, and leaderboard systems. Implemented event-driven match architecture, undo/history tracking, admin controls, tournament automation, and a responsive mobile-first UI for seamless live match management and viewer engagement.',
+      'Local cricket tournaments often struggle with manual scoring, delayed updates, and fragmented player statistics, making match management and audience engagement challenging. CricSenseX solves this by providing a real-time cricket scoring and tournament management platform with ball-by-ball scoring, live match synchronization, player analytics, Net Run Rate (NRR) calculation, fantasy points tracking, leaderboards, and automated tournament workflows. By delivering instant score updates, accurate insights, and a seamless mobile-friendly experience, CricSenseX helps players, organizers, and spectators enjoy a professional, engaging, and data-driven cricket experience.',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'Firebase Realtime Database'],
     color: '#ff8c42',
     accent: 'rgba(255,140,66,0.07)',
@@ -25,10 +25,10 @@ const PROJECTS = [
   {
     id: 'gymbuddy',
     number: '02',
-    title: 'Gym Buddy',
+    title: 'GymSync',
     subtitle: 'AI-Powered Social Fitness Platform',
     description:
-      'Scalable MERN-based fitness platform that connects users with compatible workout partners, enables verified fitness streaks through proof uploads, provides personalised workout recommendations, progress tracking, and AI-driven motivation. Implemented secure authentication, real-time engagement features, and a gamified reward system to improve user consistency and long-term fitness adherence.',
+      'GymSync is a full-stack fitness ecosystem designed to combat workout inconsistency and lack of motivation by blending fitness tracking, AI-driven insights, social accountability, and gamified rewards. The platform allows users to track workouts, verify streaks, earn fitness coins, discover compatible gym partners, and compete through leaderboards while receiving personalized recommendations. By turning fitness into an interactive and community-driven experience, GymSync keeps users motivated, accountable, and engaged, making long-term fitness goals more achievable and enjoyable.',
     tags: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'JWT', 'Tailwind CSS', 'AI Recommendation Engine', 'Render', 'Vercel'],
     color: '#7c8cf8',
     accent: 'rgba(124,140,248,0.07)',
