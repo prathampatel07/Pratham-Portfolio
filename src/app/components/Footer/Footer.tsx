@@ -35,13 +35,6 @@ export default function Footer() {
           </ul>
         </nav>
 
-        {/* Copyright */}
-        <div className={styles.copy}>
-          <p>© {year} Pratham Patel. Crafted with ☕ &amp; passion.</p>
-          <p className={styles.builtWith}>
-            Built with Next.js · Three.js · GSAP
-          </p>
-        </div>
       </div>
     </footer>
   );

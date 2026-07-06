@@ -35,6 +35,18 @@ const PROJECTS = [
     status: 'Completed',
     github: 'https://github.com/prathampatel07',
   },
+  {
+    id: 'smartenergy',
+    number: '03',
+    title: 'Smart Energy Analytics',
+    subtitle: 'AI-POWERED ENERGY ANALYTICS PLATFORM',
+    description: 'Smart Energy Analytics is an enterprise-grade AI platform that transforms energy consumption data into actionable business intelligence. Using machine learning and interactive analytics, it forecasts consumption, detects anomalies, optimizes operational costs, and delivers real-time insights to help organizations improve energy efficiency and make data-driven decisions.',
+    tags: ['Python', 'Machine Learning', 'Random Forest', 'Pandas', 'NumPy', 'Scikit-learn', 'Power BI', 'MongoDB', 'Express.js', 'React.js', 'Node.js', 'Tailwind CSS', 'REST API'],
+    color: '#34d399',
+    accent: 'rgba(52,211,153,0.07)',
+    status: 'COMPLETED',
+    github: 'https://github.com/prathampatel07',
+  },
 ];
 
 export default function ProjectsSection() {
